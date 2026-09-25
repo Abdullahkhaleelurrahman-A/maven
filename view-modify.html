@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIT - Modify Slot/Delete</title>
+    <link href="/view-modify.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="main-div">
+        <h2 id="h2_mg">FALL SEMESTER <abbr title="Fully Flexible Credit System">FFCS</abbr> 2026-27</h2>
+        <h2 id="h2_mg1">VIT - VELLORE CAMPUS</h2>
+        <div class="back">
+            <p class="p_tag"><b>(Study System : CBCS - Course System : CBCS) </b></p>
+            <p id="datetime"></p>
+        </div>
+        <div class="button_tag">
+            <button class="button_1" onclick="window.location.href='index.html'">🏠 Home</button>
+            <button class="button_2" onclick="window.location.href='view-modify.html'">📝 View / Modify</button>
+            <button class="button_3" onclick="window.location.href='index_0.html'">📴 SignOut</button>
+        </div>
+        <div class="head_tag">
+            <p class="p1_tag">Modify Slot/Delete - Registered Course(s)</p>
+        </div>
+        <div class="tb">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="th_1">Course Details</th>
+                        <th class="th_2">Credit</th>
+                        <th class="th_3">Course Category</th>
+                        <th class="th_4">Course Option</th>
+                        <th class="th_5">Class Detail</th>
+                        <th class="th_6">Slot</th>
+                        <th class="th_7">Faculty</th>
+                        <th class="th_8">Status</th>
+                        <th class="th_9">Modify</th>
+                        <th class="th_10">Delete</th>
+                    </tr>
+                </thead>
+                <tbody id="coursesTableBody">
+                    <!-- rows inserted by JS -->
+                </tbody>
+            </table>
+        </div>
+        <div class="credits-summary">
+            <p class="credits-heading">Registered Credits(s)</p>
+            <table class="credits-table">
+                <thead>
+                    <tr>
+                        <th>CGPA : 9.85</th>
+                        <th>Credits</th>
+                        <th>Courses</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Minimum</td>
+                        <td>16.0</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>Maximum</td>
+                        <td>27.5</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>Registered</td>
+                        <td id="registeredCredits">0.0</td>
+                        <td id="registeredCourseCount">0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+<script>
+   $(document).ready(function () {
+
+    // ---------- Date & Time ----------
+    function updateDateTime() {
+        const now = new Date();
+        $("#datetime").html(
+            now.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }) +
+            " | " + now.toLocaleTimeString("en-US")
+        );
+    }
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+
+    // ---------- Map each course code to its faculty page ----------
+    const facultyPageMap = {
+        "ISWE103L": "faculty1.html",
+        "ISIT207L": "faculty2.html",
+        "IMAT407L": "faculty3.html",
+        "IMAT007L": "faculty4.html",
+        "ICSE803L": "faculty5.html",
+        "IMAT987L": "faculty6.html",
+        "ISWE503L": "faculty7.html",
+        "ISWE401L": "faculty8.html",
+        "ISWE107L": "faculty9.html",
+        "ISWE203L": "faculty10.html"
+    };
+
+    // ---------- Render registered courses ----------
+    function renderCourses() {
+        const registeredCourses = JSON.parse(localStorage.getItem("registeredCourses")) || {};
+        const codes = Object.keys(registeredCourses);
+        const $tbody = $("#coursesTableBody");
+        $tbody.empty();
+
+        if (codes.length === 0) {
+            $tbody.append(`<tr><td colspan="10" class="no-courses">No courses registered yet.</td></tr>`);
+            return;
+        }
+
+        codes.forEach(function (code) {
+            const c = registeredCourses[code];
+
+            const deleteCell = (c.category === "Compulsory Course")
+                ? `<td>-NA-</td>`
+                : `<td><button class="btn-delete">Delete</button></td>`;
+
+            const row = `
+                <tr data-course="${c.code}">
+                    <td>${c.code} - ${c.title}</td>
+                    <td>${c.credit}</td>
+                    <td>${c.category}</td>
+                    <td>${c.courseOption}</td>
+                    <td>${c.classDetail}</td>
+                    <td>${c.slot}</td>
+                    <td>${c.faculty}</td>
+                    <td class="status-approved">${c.status}</td>
+                    <td><button class="btn-modify">Modify</button></td>
+                    ${deleteCell}
+                </tr>
+            `;
+            $tbody.append(row);
+        });
+    }
+
+    // ---------- Update Registered Credits summary ----------
+    function updateCreditsSummary() {
+        const registeredCourses = JSON.parse(localStorage.getItem("registeredCourses")) || {};
+        const codes = Object.keys(registeredCourses);
+
+        let totalCredits = 0;
+        codes.forEach(function (code) {
+            totalCredits += parseFloat(registeredCourses[code].credit) || 0;
+        });
+
+        $("#registeredCredits").text(totalCredits.toFixed(1));
+        $("#registeredCourseCount").text(codes.length);
+    }
+
+    renderCourses();
+    updateCreditsSummary();
+
+    // ---------- Delete a course ----------
+    $("#coursesTableBody").on("click", ".btn-delete", function () {
+        const code = $(this).closest("tr").data("course");
+        let registeredCourses = JSON.parse(localStorage.getItem("registeredCourses")) || {};
+        const course = registeredCourses[code];
+
+        if (course) {
+            // Give the seat back to that faculty
+            const seatKey = code + "__" + course.faculty;
+            let seatCounts = JSON.parse(localStorage.getItem("seatCounts")) || {};
+            seatCounts[seatKey] = (seatCounts[seatKey] || 0) + 1;
+            localStorage.setItem("seatCounts", JSON.stringify(seatCounts));
+        }
+
+        delete registeredCourses[code];
+        localStorage.setItem("registeredCourses", JSON.stringify(registeredCourses));
+        renderCourses();
+        updateCreditsSummary();
+    });
+
+    // ---------- Modify a course ----------
+    $("#coursesTableBody").on("click", ".btn-modify", function () {
+        const code = $(this).closest("tr").data("course");
+        const page = facultyPageMap[code];
+
+        if (page) {
+            window.location.href = page;
+        }
+    });
+
+});
+</script>
+</body>
+</html>

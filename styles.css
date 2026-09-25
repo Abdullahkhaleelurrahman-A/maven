@@ -1,0 +1,279 @@
+/* Prevent all elements from overflowing */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: #eef2f8;
+    color: #1d2b48;
+}
+
+.vtop-header {
+    background: #002060;
+    color: #ffffff;
+    padding: 18px 24px;
+}
+
+.vtop-brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.vtop-logo {
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    color: #002060;
+    font-weight: 700;
+    border-radius: 10px;
+    font-size: 1rem;
+}
+
+.vtop-org {
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.vtop-subtitle {
+    font-size: 0.85rem;
+    color: #d6e2ff;
+    margin-top: 2px;
+}
+
+.page {
+    display: flex;
+    justify-content: center;
+    padding: 40px 16px 60px;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 560px;
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 18px 16px 24px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.login-card h1 {
+    margin: 0 0 10px;
+    font-size: 2rem;
+    color: #002060;
+    font-weight: 700;
+}
+
+.subtitle {
+    margin: 0 0 28px;
+    color: #5a6c87;
+    font-size: 1.35rem;
+}
+
+.input-group {
+    margin-bottom: 22px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    color: #3d4d6b;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 16px;
+    border: 1px solid #c5d2ea;
+    border-radius: 14px;
+    font-size: 1rem;
+    background: #f8fbff;
+    color: #1d2b48;
+    box-sizing: border-box;   /* Fix overflow */
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: #002060;
+    box-shadow: 0 0 0 3px rgba(0,32,96,0.12);
+}
+
+.show-password {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+    font-size: 1rem;
+}
+
+.login-button {
+    width: 100%;
+    height: 56px;
+    border: none;
+    border-radius: 14px;
+    background: #002060;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.login-button:hover {
+    background: #00184d;
+}
+
+.forgot-link {
+    display: block;
+    text-align: center;
+    margin-top: 24px;
+    color: #0056b8;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.forgot-link:hover {
+    text-decoration: underline;
+}
+
+.captcha-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.captcha {
+    flex: 1;
+    background: #f6d37d;
+    color: #1d2b48;
+    text-align: center;
+    padding: 14px;
+    border-radius: 12px;
+    letter-spacing: 4px;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.refresh-btn {
+    width: 50px;
+    height: 50px;
+    border: none;
+    background: #0056b8;
+    color: white;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+/* ---------- Instruction Page ---------- */
+
+.instruction-page{
+    width:90%;
+    max-width:950px;
+    margin:50px auto;
+    background:#fff;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 15px 45px rgba(0,0,0,.12);
+}
+
+.instruction-header{
+    background:#002060;
+    padding:28px 36px;
+}
+
+.instruction-brand{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    color:#fff;
+}
+
+.instruction-brand .vtop-logo{
+    width:68px;
+    height:68px;
+    background:#fff;
+    color:#002060;
+    border-radius:14px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:28px;
+    font-weight:bold;
+}
+
+.instruction-brand .vtop-org{
+    font-size:32px;
+    color:#fff;
+    font-weight:600;
+}
+
+.instruction-brand .vtop-subtitle{
+    font-size:20px;
+    color:#dbe5ff;
+}
+
+.instruction-body{
+    padding:40px;
+}
+
+.instruction-body h1{
+    margin:0;
+    color:#1d355d;
+    font-size:24px;
+}
+
+.instruction-body p{
+    margin:18px 0 28px;
+    font-size:16px;
+    color:#4d5f7b;
+}
+
+.instruction-body ol{
+    margin:0;
+    padding-left:35px;
+    font-size:16px;
+    line-height:2;
+    color:#2d3b57;
+}
+
+.instruction-actions{
+    margin-top:35px;
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.start-registration{
+    background:#002060;
+    color:#fff;
+    padding:16px 35px;
+    border-radius:12px;
+    text-decoration:none;
+    font-size:16px;
+    font-weight:600;
+}
+
+.start-registration:hover{
+    background:#00174d;
+}
+
+.back-link{
+    color:#002060;
+    font-size:16px;
+    font-weight:600;
+    text-decoration:none;
+}
+
+.back-link:hover{
+    text-decoration:underline;
+}

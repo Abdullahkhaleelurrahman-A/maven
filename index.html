@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIT - VTOP Registration</title>
+    <link href="style.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="main-div">
+        <h2 id="h2_mg">FALL SEMESTER <abbr title="Fully Flexible Credit System">FFCS</abbr> 2026-27</h2>
+        <h2 id="h2_mg1">VIT - VELLORE CAMPUS</h2>
+        <div class="back">
+            <p class="p_tag"> 
+                <b>(Study System : CBCS - Course System : CBCS) </b>
+                
+            </p>
+            <p id="datetime"></p>
+        </div>
+        <div class="button_tag">
+            <button class="button_1" onclick="window.location.href='index.html'">🏠 Home</button>
+            <button class="button_2" onclick="window.location.href='view-modify.html'">📝 View / Modify</button>
+            <button class="button_3" onclick="window.location.href='index_0.html'">📴 SignOut</button>
+        </div>
+        <form class="formed">
+        <div class="box_select">
+             <div class="heading_tag">
+                <p class="p_marg">Course Registration Option</p>
+             </div>
+             <div class="option_tag">
+                <div class="quart-width"><input type="radio" name="co" value="course1"/> Compulsory Course</div>
+                <div class="quart-width"><input type="radio" name="co" value="course2"/>
+                Foundation Core</div>
+                <div class="quart-width"><input type="radio" name="co" value="course3"/>
+                Discipline-linked Engineering Sciences</div>
+                <div class="quart-width"><input type="radio" name="co" value="course4"/>
+                Discipline Core</div>
+                <div class="last-width"><input type="radio" name="co" value="course5"/>
+                Project and Intership</div>
+             </div>
+        </div>
+        </form>
+        <div class="Btn">
+            <button class="pro-btn" id="proceedBtn">Proceed</button>
+        </div>
+    </div>
+       <div class="custom-alert-overlay" id="customAlertOverlay">
+        <div class="custom-alert-box">
+            <p id="customAlertMessage"></p>
+            <button id="customAlertClose">OK</button>
+        </div>
+    </div>
+<script>
+$(document).ready(function () {
+
+    // ---------- Date & Time ----------
+    function updateDateTime() {
+        const now = new Date();
+        $("#datetime").html(
+            now.toLocaleDateString("en-GB", {
+                day: "2-digit",
+                month: "short",
+                year: "numeric"
+            }) + " | " +
+            now.toLocaleTimeString("en-US")
+        );
+    }
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+
+    function showCustomAlert(message) {
+        $("#customAlertMessage").text(message);
+        $("#customAlertOverlay").css("display", "flex");
+    }
+
+    $("#customAlertClose").on("click", function () {
+        $("#customAlertOverlay").css("display", "none");
+    });
+
+    // ---------- Check if all compulsory courses are registered ----------
+    function compulsoryCoursesDone() {
+        const compulsoryCourses = ["ISWE103L", "ISIT207L"]; // add more if there are others
+        const registeredCourses = JSON.parse(localStorage.getItem("registeredCourses")) || {};
+        return compulsoryCourses.every(
+            (code) => registeredCourses.hasOwnProperty(code)
+        );
+    }
+
+    // ---------- Proceed Button ----------
+    $("#proceedBtn").on("click", function () {
+        let selected = $('input[name="co"]:checked').val();
+
+        if (!selected) {
+            showCustomAlert("Please select a course option before proceeding.");
+            return;
+        }
+
+        // Compulsory Course is always accessible
+        if (selected === "course1") {
+            window.location.href = "course1.html";
+            return;
+        }
+
+        // Everything else requires compulsory courses to be fully registered first
+        if (!compulsoryCoursesDone()) {
+            showCustomAlert("Please complete registration for all Compulsory Courses before proceeding to other categories.");
+            return;
+        }
+
+        switch (selected) {
+            case "course2":
+                window.location.href = "course2.html";
+                break;
+            case "course3":
+                window.location.href = "course3.html";
+                break;
+            case "course4":
+                window.location.href = "course4.html";
+                break;
+            case "course5":
+                showCustomAlert("You are not applicable for this.");
+                break;
+            default:
+                showCustomAlert("Please select a course option before proceeding.");
+        }
+    });
+
+});
+</script>
+</body>
+</html>

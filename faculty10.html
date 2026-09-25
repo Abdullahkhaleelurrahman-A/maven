@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIT - VTOP Registration</title>
+    <link href="faculty.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="main-div">
+        <h2 id="h2_mg">FALL SEMESTER <abbr title="Fully Flexible Credit System">FFCS</abbr> 2026-27</h2>
+        <h2 id="h2_mg1">VIT - VELLORE CAMPUS</h2>
+        <div class="back">
+            <p class="p_tag"> 
+                <b>(Study System : CBCS - Course System : CBCS) </b>
+                
+            </p>
+            <p id="datetime"></p>
+        </div>
+        <div class="button_tag">
+            <button class="button_1" onclick="window.location.href='index.html'">🏠 Home</button>
+            <button class="button_2" onclick="window.location.href='view-modify.html'">📝 View / Modify</button>
+            <button class="button_3" onclick="window.location.href='index_0.html'">📴 SignOut</button>
+        </div>
+        <div class="head_tag">
+            <p class="p1_tag">Register Course(s)</p>
+       </div>
+       <div class="tb1">
+          <table>
+            <thead>
+                 <tr>
+                    <th class="th_1">Course Code</th>
+                    <th class="th_1">Course Title</th>
+                    <th class="th_1">Course Type</th>
+                 </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>IMAT407L</td>
+                    <td>Probability and Statistics</td>
+                    <td>TH</td>
+                </tr>
+            </tbody>
+          </table>
+       </div>
+       <div class="tb2">
+          <table>
+            <thead>
+                 <tr>
+                    <th class="th_2">Slot</th>
+                    <th class="th_2">Venue</th>
+                    <th class="th_3">Faculty</th>
+                    <th class="th_4">Available</th>
+                 </tr>
+                 <tr>
+                    <th colspan="4"class="th_5">Theory Slots</th>
+                 </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>F1+TF1</td>
+                    <td>SJT153</td>
+                    <td>SAHUL K</td>
+                    <td><input type="radio" name="faculty" class="faculty-radio" data-seats="70"/>
+                    <span class="seat-count">70</span>
+                </tr>
+                <tr>
+                    <td>B1+TB1</td>
+                    <td>SJT163</td>
+                    <td>THENNARASU G</td>
+                    <td><input type="radio" name="faculty" class="faculty-radio" data-seats="70"/>
+                    <span class="seat-count">70</span>
+                </tr>
+                <tr>
+                    <td colspan="2" class="sd">Course Option</td>
+                    <td colspan="2" class="rd"><input type="radio" name="courseOption" id="regularOption"/> Regular</td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <button class="btn2" id="registerBtn">Register</button>
+                        <button class="btn3" onclick="window.location.href='course4.html'">Go Back</button>
+                    </td>
+                </tr>
+            </tbody>
+          </table>
+       </div>
+            
+    </div>
+    <div class="custom-alert-overlay" id="customAlertOverlay">
+        <div class="custom-alert-box" id="customAlertBox">
+            <p id="customAlertMessage"></p>
+            <button id="customAlertClose">OK</button>
+        </div>
+    </div>
+<script>
+    $(document).ready(function () {
+
+    const COURSE_CODE = "ISWE203L"; // change this per faculty page (faculty2.js = "ISIT207L", etc.)
+
+    // ---------- Date & Time ----------
+    function updateDateTime() {
+        const now = new Date();
+        $("#datetime").html(
+            now.toLocaleDateString("en-GB", {
+                day: "2-digit",
+                month: "short",
+                year: "numeric"
+            }) + " | " +
+            now.toLocaleTimeString("en-US")
+        );
+    }
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+
+    // ---------- Seat persistence helpers ----------
+    function seatKey($radio) {
+        const faculty = $radio.closest("tr").find("td:eq(2)").text().trim();
+        return COURSE_CODE + "__" + faculty;
+    }
+
+    function getStoredSeats() {
+        return JSON.parse(localStorage.getItem("seatCounts")) || {};
+    }
+
+    function setStoredSeats(seats) {
+        localStorage.setItem("seatCounts", JSON.stringify(seats));
+    }
+
+    // Capture original seat capacity from the HTML before applying any overrides
+    const seatDefaults = {};
+    $(".faculty-radio").each(function () {
+        const $radio = $(this);
+        seatDefaults[seatKey($radio)] = parseInt($radio.attr("data-seats"), 10);
+    });
+
+    function currentSeatsFor(key) {
+        const storedSeats = getStoredSeats();
+        return storedSeats.hasOwnProperty(key) ? storedSeats[key] : seatDefaults[key];
+    }
+
+    function incrementSeat(key) {
+        let storedSeats = getStoredSeats();
+        storedSeats[key] = currentSeatsFor(key) + 1;
+        setStoredSeats(storedSeats);
+    }
+
+    function decrementSeat(key) {
+        let storedSeats = getStoredSeats();
+        storedSeats[key] = currentSeatsFor(key) - 1;
+        setStoredSeats(storedSeats);
+    }
+
+    // ---------- Show FULL instead of 0 seats, and sync displayed count from storage ----------
+    function refreshSeatDisplay($radio) {
+        const key = seatKey($radio);
+        const seats = currentSeatsFor(key);
+        $radio.data("seats", seats);
+        $radio.attr("data-seats", seats);
+
+        const $seatSpan = $radio.siblings(".seat-count");
+
+        if (seats <= 0) {
+            $seatSpan.text("FULL").addClass("full");
+            $radio.prop("disabled", true);
+            $radio.prop("checked", false);
+        } else {
+            $seatSpan.text(seats).removeClass("full");
+        }
+    }
+
+    $(".faculty-radio").each(function () {
+        refreshSeatDisplay($(this));
+    });
+
+    // ---------- Custom Alert Helper ----------
+    let redirectAfterClose = false;
+
+    function showCustomAlert(message, type, redirect) {
+        $("#customAlertMessage").text(message);
+        $("#customAlertBox").removeClass("success");
+        if (type === "success") {
+            $("#customAlertBox").addClass("success");
+        }
+        redirectAfterClose = redirect === true;
+        $("#customAlertOverlay").css("display", "flex");
+    }
+
+    $("#customAlertClose").on("click", function () {
+        $("#customAlertOverlay").css("display", "none");
+        if (redirectAfterClose) {
+            window.location.href = "course4.html";
+        }
+    });
+
+    // ---------- Register Button ----------
+    $("#registerBtn").on("click", function (e) {
+        e.preventDefault();
+
+        const $selectedFaculty = $('input[name="faculty"]:checked');
+        const facultySelected = $selectedFaculty.length > 0;
+        const $selectedOption = $('input[name="courseOption"]:checked');
+        const regularSelected = $selectedOption.length > 0;
+
+        if (!facultySelected) {
+            showCustomAlert("Please select a faculty before registering.", "error", false);
+            return;
+        }
+
+        if (!regularSelected) {
+            showCustomAlert("Please select 'Regular' before registering.", "error", false);
+            return;
+        }
+
+        const newFacultyName = $selectedFaculty.closest("tr").find("td:eq(2)").text().trim();
+        const newKey = seatKey($selectedFaculty);
+
+        let registeredCourses = JSON.parse(localStorage.getItem("registeredCourses")) || {};
+        const existing = registeredCourses[COURSE_CODE]; // previous registration for this course, if any
+
+        // Block re-registering the same faculty
+        if (existing && existing.faculty === newFacultyName) {
+            showCustomAlert("You are already registered under this faculty.", "error", false);
+            return;
+        }
+         const MAX_CREDITS = 27.5;
+        const thisCourseCredit = parseFloat("4.0"); // change to match this course's credit value
+
+        let totalCredits = 0;
+        Object.keys(registeredCourses).forEach(function (code) {
+            if (code !== COURSE_CODE) { // exclude this course itself, in case it's already registered under a different faculty
+                totalCredits += parseFloat(registeredCourses[code].credit) || 0;
+            }
+        });
+        totalCredits += thisCourseCredit;
+
+        if (totalCredits > MAX_CREDITS) {
+            showCustomAlert("Registering this course exceeds the maximum credit limit of " + MAX_CREDITS + ".", "error", false);
+            return;
+        }
+        // If switching from a different faculty, give that seat back
+        if (existing && existing.faculty && existing.faculty !== newFacultyName) {
+            const oldKey = COURSE_CODE + "__" + existing.faculty;
+            incrementSeat(oldKey);
+        }
+
+        // Only deduct a seat if this is a new pick (not re-confirming the same faculty)
+        if (!existing || existing.faculty !== newFacultyName) {
+            decrementSeat(newKey);
+        }
+
+        // Refresh all seat displays on this page to reflect storage
+        $(".faculty-radio").each(function () {
+            refreshSeatDisplay($(this));
+        });
+
+        // ---------- Save full course details ----------
+        const courseData = {
+            code: COURSE_CODE,
+            title: "Database Systems",
+            credit: "4.0",
+            category: "Discipline Core",
+            courseOption: "Regular",
+            classDetail: $selectedFaculty.closest("tr").find("td:eq(1)").text().trim(),
+            slot: $selectedFaculty.closest("tr").find("td:eq(0)").text().trim(),
+            faculty: newFacultyName,
+            status: "Registered and Approved"
+        };
+
+        registeredCourses[COURSE_CODE] = courseData;
+        localStorage.setItem("registeredCourses", JSON.stringify(registeredCourses));
+
+        showCustomAlert("Registered successfully!", "success", true);
+    });
+
+});
+</script> 
+</body>
+</html>    

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIT - VTOP Registration</title>
+    <link href="courses.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="main-div">
+        <h2 id="h2_mg">FALL SEMESTER <abbr title="Fully Flexible Credit System">FFCS</abbr> 2026-27</h2>
+        <h2 id="h2_mg1">VIT - VELLORE CAMPUS</h2>
+        <div class="back">
+            <p class="p_tag"> 
+                <b>(Study System : CBCS - Course System : CBCS) </b>
+                
+            </p>
+            <p id="datetime"></p>
+        </div>
+        <div class="button_tag">
+            <button class="button_1" onclick="window.location.href='index.html'">🏠 Home</button>
+            <button class="button_2" onclick="window.location.href='view-modify.html'">📝 View / Modify</button>
+            <button class="button_3" onclick="window.location.href='index_0.html'">📴 SignOut</button>
+        </div>
+        <div class="head_tag">
+            <p class="p1_tag">Discipline Core</p>
+        </div>
+        <div class="tb">
+        <table>
+            <thead>
+            <tr>
+                <th class="th_1">COURSE DETAIL</th>
+                <th class="th_2">LTPJ</th>
+                <th class="th_3">CREDIT</th>
+                <th class="th_4">PRE-REQUISITE</th>
+                <th class="th_5">CO-REQUISITE</th>
+                <th class="th_6">ANTI-REQUISITE</th>
+                <th class="th_7">STATUS</th>
+                <th class="th_8">REGISTER</th>
+            </tr>
+            </thead>
+            <tbody>
+               <tr data-course="ISWE107L">
+                <td>ISWE107L - Data Structures and Algorithm- TH</td>
+                <td>3 0 0 0</td>
+                <td>3.0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="status-cell"></td>
+                <td class="register-cell">
+                    <button class="btn" onclick="window.location.href='faculty9.html'">Proceed</button>
+                </td>
+                </tr>
+                <tr class="t_1" data-course="ISWE203L">
+                <td>ISWE203L - Database Systems- TH</td>
+                <td>4 0 0 0</td>
+                <td>4.0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="status-cell"></td>
+                <td class="register-cell">
+                    <button class="btn" onclick="window.location.href='faculty10.html'">Proceed</button>
+                </td>
+                </tr>
+                <tr>
+                <tr>
+            </tbody>
+         </table>
+        </div>
+    </div>
+<script>
+    $(document).ready(function () {
+
+    // ---------- Date & Time ----------
+    function updateDateTime() {
+        const now = new Date();
+        $("#datetime").html(
+            now.toLocaleDateString("en-GB", {
+                day: "2-digit",
+                month: "short",
+                year: "numeric"
+            }) + " | " +
+            now.toLocaleTimeString("en-US")
+        );
+    }
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+
+    const registeredCourses=JSON.parse(localStorage.getItem("registeredCourses"))
+    // ---------- Reflect registration status per row ----------
+    $("tr[data-course]").each(function () {
+   
+    // ---------- Reflect registration status per row ----------
+        const courseCode = $(this).data("course");
+        const isRegistered = registeredCourses.hasOwnProperty(courseCode);
+
+        if (isRegistered) {
+            $(this).find(".status-cell").text("Registered").addClass("status-registered");
+            $(this).find(".register-cell").empty(); // remove Proceed button
+        }
+    });
+
+});
+</script>  
+</body>
+</html>

@@ -1,0 +1,205 @@
+body
+{
+    margin: 0;
+}
+.main-div{
+    background-color: rgba(255, 255, 255, 0.811);
+    min-height: 100vh;
+}
+#h2_mg{
+    padding-top: 24px;
+    margin-top: 0;
+    margin-bottom: 4px;
+    text-align: center;
+    word-spacing: 5px;
+    letter-spacing: 1.4px;
+}
+abbr{
+    text-decoration: none;
+}
+#h2_mg1{
+    margin-top: -5px;
+    text-align: center;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+.back{
+    background-color: rgb(223, 225, 226);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap:971px;
+}
+.p_tag{
+    padding: 11px;
+    padding-left: 12px;
+    font-size: 16px;
+    margin: 6px;
+}
+.button_tag{
+    display: flex;
+    justify-content: center;
+    gap:470px;
+    padding-bottom: 7px;
+}
+.button_1
+{
+    padding: 8px;
+    border-radius: 8px;
+    border:0;
+    background-color: #058605;
+    color: white;
+    font-size: 14px;
+    font-weight: bolder;
+}
+.button_2
+{
+    padding: 9px 16px;
+    border-radius: 8px;
+    border:0;
+    background-color: #f3ad36;
+    color: white;
+    font-size: 14px;
+    font-weight: bolder;
+}
+.button_3
+{
+    padding: 9px 16px;
+    border-radius: 8px;
+    border:0;
+    background-color: #d60707d7;
+    color: white;
+    font-size: 14px;
+    font-weight: bolder;
+}
+.head_tag{
+    display: flex;
+    justify-content: center;
+}
+.p1_tag{
+    font-size: 17px;
+    font-weight: bolder;
+}
+table{
+    border-collapse: collapse;
+}
+table,th,td{
+    border: 1px solid black;
+}
+.tb1{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 23px;
+}
+.th_1{
+    padding: 6px 116px;
+    background: linear-gradient(to right,#1f5fae,#162c62);
+    color: white;
+}
+td{
+    padding: 10px;
+    text-align: center;
+}
+.tb2
+{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 10px;
+}
+.th_2{
+    padding: 11px 55px;
+    background: linear-gradient(to right,#1f5fae,#162c62);
+    color: white;
+}
+.th_3{
+    padding: 11px 175px;
+    background: linear-gradient(to right,#1f5fae,#162c62);
+    color: white;
+}
+.th_4{
+    padding: 11px 100px;
+    background: linear-gradient(to right,#1f5fae,#162c62);
+    color: white;
+}
+
+.th_5{
+    text-align: center;
+    padding:11px;
+    background: linear-gradient(to right,#1f5fae,#162c62);
+    color: white;
+}
+.rd{
+    text-align: left;
+    background-color: #bdd9fb;
+}
+.sd{
+    background-color:#bdd9fb;
+}
+.btn2{
+    border-radius: 4px;
+    border:0;
+    padding: 5px 11px 5px 11px;
+    color: white;
+    background-color: #0d8c0d;
+    font-weight: bold;
+}
+.btn3{
+    border-radius: 4px;
+    border:0;
+    padding: 5px 11px 5px 11px;
+    color: white;
+    background-color: rgb(74, 74, 74);
+    font-weight: bold;
+    margin: 0 10px;
+}
+.custom-alert-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+
+.custom-alert-box {
+    background-color: #d32f2f;
+    color: #fff;
+    padding: 25px 35px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    font-size: 16px;
+    max-width: 350px;
+}
+
+.custom-alert-box.success {
+    background-color: #2e7d32;
+}
+
+.custom-alert-box button {
+    margin-top: 15px;
+    padding: 6px 20px;
+    border: none;
+    border-radius: 4px;
+    background: #fff;
+    color: #d32f2f;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.custom-alert-box.success button {
+    color: #2e7d32;
+}
+
+.custom-alert-box button:hover {
+    background: #f1f1f1;
+}
+
+.seat-count.full {
+    color: #d32f2f;
+    font-weight: bold;
+}

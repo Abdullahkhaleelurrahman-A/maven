@@ -1,0 +1,153 @@
+body
+{
+    margin: 0;
+}
+.main-div{
+    background-color: rgba(250, 250, 250, 0.811);
+    min-height: 100vh;
+
+}
+#h2_mg{
+    padding-top: 24px;
+    margin-top: 0;
+    margin-bottom: 4px;
+    text-align: center;
+    word-spacing: 5px;
+    letter-spacing: 1.4px;
+}
+abbr{
+    text-decoration: none;
+}
+#h2_mg1{
+    margin-top: -5px;
+    text-align: center;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+.back{
+    background-color: rgb(223, 225, 226);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap:971px;
+}
+.p_tag{
+    padding: 11px;
+    padding-left: 12px;
+    font-size: 16px;
+    margin: 6px;
+}
+.button_tag{
+    display: flex;
+    justify-content: center;
+    gap:470px;
+    padding-bottom: 7px;
+}
+.button_1
+{
+    padding: 8px;
+    border-radius: 8px;
+    border:0;
+    background-color: #058605;
+    color: white;
+    font-size: 14px;
+    font-weight: bolder;
+}
+.button_2
+{
+    padding: 9px 16px;
+    border-radius: 8px;
+    border:0;
+    background-color: #f3ad36;
+    color: white;
+    font-size: 14px;
+    font-weight: bolder;
+}
+.button_3
+{
+    padding: 9px 16px;
+    border-radius: 8px;
+    border:0;
+    background-color: #d60707d7;
+    color: white;
+    font-size: 14px;
+    font-weight: bolder;
+}
+
+.p1_tag{
+    text-align: center;
+    font-weight: bold;
+}
+.head_tag{
+    padding-bottom: 20px;
+}
+table{
+    border-collapse: collapse;
+}
+table,th,td{
+    border: 1px solid black;
+}
+.tb{
+    display: flex;
+    justify-content: center;
+}
+.th_1{
+    padding: 6px 120px;
+    background: linear-gradient(to right,#1f5fae,#162c62);
+    color: white;
+}
+.th_2{
+    color: white;
+    letter-spacing: 2px;
+    background: linear-gradient(to right,#1f5fae,#162c62);
+    padding: 1px 10px;
+}
+.th_3{
+    color: white;
+    background: linear-gradient(to right,#1f5fae,#162c62);
+    padding: 1px 7px;
+}
+.th_4{
+    color: white;
+    background: linear-gradient(to right,#1f5fae,#162c62);
+    padding: 1px 7px;
+}
+.th_5{
+    color: white;
+    background: linear-gradient(to right,#1f5fae,#162c62);
+    padding: 1px 7px;
+}
+.th_6{
+    color: white;
+    background: linear-gradient(to right,#1f5fae,#162c62);
+    padding: 1px 7px;
+}
+.th_7{
+    color: white;
+    background: linear-gradient(to right,#1f5fae,#162c62);
+    padding: 1px 7px;
+}
+.th_8{
+    color: white;
+    background: linear-gradient(to right,#1f5fae,#162c62);
+    padding: 1px 7px;
+}
+td{
+    padding: 15px;
+}
+.t_1{
+    background-color: rgb(251, 240, 226);
+}
+.btn{
+    padding: 8px 12px;
+    color: white;
+    background-color: #297fe9;
+    border-radius: 5px;
+    border: 0;
+    font-weight: bold;
+}
+.status-registered{
+    color:#2e7d32;
+    font-weight: bold;
+}
+

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VIT Vellore Course Registration</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="vtop-header">
+    <div class="vtop-brand">
+      <div class="vtop-logo">VIT</div>
+      <div>
+        <div class="vtop-org">VIT VELLORE</div>
+        <div class="vtop-subtitle"></div>
+      </div>
+    </div>
+  </header>
+  <main class="page">
+    <section class="login-card">
+      <h1>Fall Semester Add/Drop 2026-27</h1>
+      <p class="subtitle">Sign in with your VTOP credentials</p>
+
+      <form id="loginForm" novalidate>
+        <div class="input-group">
+          <label for="username">Username</label>
+          <input id="username" type="text" placeholder="Use Registration Number" autocomplete="username">
+        </div>
+
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input id="password" type="password" placeholder="Enter VTOP Password" autocomplete="current-password">
+        </div>
+
+        <label class="show-password">
+          <input type="checkbox" onclick="togglePassword(this)">
+          Show Password
+        </label>
+
+        <button type="submit" class="login-button"> Sign In</button>
+      </form>
+
+      <a class="forgot-link" href="https://vtop.vit.ac.in/vtop/login/login" target="_blank" rel="noreferrer">
+        Forgot Password?
+      </a>
+    </section>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="script.js"></script>
+  
+</body>
+</html>
